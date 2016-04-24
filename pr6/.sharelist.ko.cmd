@@ -1,1 +1,1 @@
-cmd_/home/ubuntu/pr6/pr6/sharelist.ko := ld -r -m elf_x86_64 -T /home/ubuntu/kernel/kernel/linux-3.14.62/scripts/module-common.lds --build-id  -o /home/ubuntu/pr6/pr6/sharelist.ko /home/ubuntu/pr6/pr6/sharelist.o /home/ubuntu/pr6/pr6/sharelist.mod.o
+cmd_/home/jinhuili/dev/linuxHw/pr6/sharelist.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/jinhuili/dev/linuxHw/pr6/sharelist.ko /home/jinhuili/dev/linuxHw/pr6/sharelist.o /home/jinhuili/dev/linuxHw/pr6/sharelist.mod.o

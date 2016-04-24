@@ -1,2 +1,2 @@
-/home/ubuntu/pr6/pr6/sharelist.ko
-/home/ubuntu/pr6/pr6/sharelist.o
+/home/jinhuili/dev/linuxHw/pr6/sharelist.ko
+/home/jinhuili/dev/linuxHw/pr6/sharelist.o
