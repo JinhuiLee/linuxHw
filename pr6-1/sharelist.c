@@ -8,6 +8,7 @@
 #include <linux/sched.h>
 #include <linux/kthread.h>
 #include <linux/spinlock.h>
+#include <linux/list.h>
 
 struct ShareData{
   int data;
@@ -15,14 +16,14 @@ struct ShareData{
 };
 
 
-LIST_HEAD(head);
-int g_count=0;
-volatile int running=1;
-struct work_struct my_work[100];
-struct workqueue_struct* myqueue[100];
+extern struct list_head head;
+extern int g_count;
+extern volatile int running;
+extern struct work_struct my_work[100];
+extern struct workqueue_struct* myqueue[100];
 
-struct timer_list mytimer;
-DEFINE_SPINLOCK(list_lock);
+extern struct timer_list mytimer;
+extern spinlock_t list_lock;
 
 
 
@@ -49,7 +50,7 @@ static void my_func(void)
       if  (count<800)
       {
         spin_lock(&list_lock);
-        printk(KERN_EMERG "my_func is adding (%d)\n",g_count);
+        printk(KERN_EMERG "KernelThread: adding data(%d) to head\n",g_count);
         struct ShareData* p = kmalloc(sizeof(*p),GFP_KERNEL);
         p->data = g_count;
         g_count++;
@@ -58,27 +59,22 @@ static void my_func(void)
       }
       msleep(100);
     }
-    printk(KERN_EMERG "Quitting\n");
+    printk(KERN_EMERG "KernelThread: Quitting!\n");
 }
 
 void mytimer_ok(unsigned long expires)
 {
  
-  printk("my timer is ok \n");
+  printk("Timer: timer wake up! \n");
   mod_timer(&mytimer,jiffies+200);
   spin_lock(&list_lock);
   struct list_head *tail = (head.prev);
   if (tail!=&head){ 
     struct ShareData* p = list_entry(tail,typeof(*p),list);
-    printk("deleting tail data (%d)\n", p->data);
+    printk("Timer: deleting tail of list (%d)\n", p->data);
     list_del(tail);
   }
   spin_unlock(&list_lock);
-  //list_for_each_entry(p,&head,list)
-  //{
-  //	printk("deleting %d\n",p->data);
-  //}  
-//list_del(tail);
 
 }
 

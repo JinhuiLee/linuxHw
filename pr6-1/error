@@ -1,0 +1,4 @@
+make -C /lib/modules/3.14.62/build M=/home/jinhuili/dev/linuxHw/pr6-1 modules
+make[1]: 正在进入目录 `/home/jinhuili/dev/kernel/linux-3.14.62'
+  CC [M]  /home/jinhuili/dev/linuxHw/pr6-1/sharelist.o
+make[1]:正在离开目录 `/home/jinhuili/dev/kernel/linux-3.14.62'
